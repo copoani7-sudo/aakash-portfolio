@@ -1,14 +1,29 @@
 
 import React, { useEffect, useState } from 'react';
 import { PROJECTS, SKILLS } from './constants';
-import { portfolioData } from './data';
-import BentoCard from './components/BentoCard';
-import FloatingElement from './components/FloatingElement';
 import { Play, Film, Mail, Smartphone, BookOpen, Youtube, Instagram, User, Globe, Clock, Sparkles } from 'lucide-react';
+
+// Hardcoded portfolio data to prevent any 404 or module resolution errors
+const PORTFOLIO_DATA = {
+  name: "Aakash Rajbhar",
+  role: "Video Editor",
+  description: "Professional editor specializing in high-retention storytelling, viral shorts, and cinematic showreels. I turn raw footage into high-performance digital assets.",
+  stats: {
+    views: "50M+",
+    experience: "2 YRS",
+    engagement: "300%"
+  },
+  contact: {
+    email: "aakashguru849@gmail.com",
+    youtube: "https://www.youtube.com/@aakashbasant",
+    instagram: "https://www.instagram.com/aakash_rajbhar_b/"
+  }
+};
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
 
+  // Only handle scroll logic, NO fetch or data loading
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -17,24 +32,16 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToVideo = () => {
-    const element = document.getElementById('showcase-video');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
-
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
-  // Dynamically split name from portfolioData
-  const nameParts = (portfolioData.name || 'Aakash Rajbhar').split(' ');
-  const firstName = nameParts[0] || 'AAKASH';
-  const lastName = nameParts.slice(1).join(' ') || 'RAJBHAR';
+  const nameParts = PORTFOLIO_DATA.name.split(' ');
+  const firstName = nameParts[0];
+  const lastName = nameParts[1];
   const initial = firstName.charAt(0);
 
   return (
@@ -48,10 +55,10 @@ const App: React.FC = () => {
              <span className="uppercase">{firstName}</span>
           </div>
           <button 
-            onClick={scrollToVideo}
+            onClick={() => scrollToSection('showcase-video')}
             className="px-6 py-2 bg-themeRust text-themeCream rounded-full font-black text-xs uppercase tracking-widest hover:bg-themeOrange transition-all flex items-center gap-2 group shadow-lg"
           >
-            START NOW
+            WATCH REEL
             <div className="w-4 h-4 bg-themeCream text-themeRust rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
               <Play size={8} fill="currentColor" />
             </div>
@@ -60,9 +67,9 @@ const App: React.FC = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-12 px-6 overflow-hidden flex flex-col justify-center">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 blur-[2px] pointer-events-none select-none">
-          <span className="font-chunky text-[40rem] leading-none text-themeRust select-none">{initial}</span>
+      <section className="relative pt-40 pb-12 px-6 overflow-hidden flex flex-col justify-center min-h-[90vh]">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 blur-[2px] pointer-events-none select-none">
+          <span className="font-chunky text-[30rem] md:text-[45rem] leading-none text-themeRust select-none">{initial}</span>
         </div>
         
         <div className="container mx-auto relative z-10">
@@ -72,11 +79,11 @@ const App: React.FC = () => {
               <span className="text-themeOrange">{lastName}</span>
             </h1>
             <p className="text-3xl md:text-6xl font-black text-themeRust uppercase tracking-[0.05em] mb-12 italic">
-              Video Editor
+              {PORTFOLIO_DATA.role}
             </p>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mt-16">
               <p className="text-themeRose/60 text-lg md:text-xl max-w-md font-medium leading-relaxed">
-                I've scaled channels to <span className="text-themeOrange font-bold">50M+ views</span>. {portfolioData.description}
+                I've scaled channels to <span className="text-themeOrange font-bold">{PORTFOLIO_DATA.stats.views} views</span>. {PORTFOLIO_DATA.description}
               </p>
               <div className="flex gap-4">
                  <div className="w-12 h-1 bg-themeRust"></div>
@@ -88,19 +95,16 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Philosophy Section */}
+      {/* Showcase Section */}
       <section id="showcase-video" className="pt-12 pb-32 px-6 text-center relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-themeRust/5 rounded-full blur-[120px] pointer-events-none"></div>
-        <div className="container mx-auto max-w-3xl relative z-10">
+        <div className="container mx-auto max-w-4xl relative z-10">
           <h2 className="font-chunky text-3xl md:text-5xl mb-6 text-themeCream leading-tight">
             STORY SCALES.<br />
             <span className="cookie-text-yellow">NOISE DOESN'T.</span>
           </h2>
-          <p className="text-themeRose/50 text-lg md:text-xl font-medium leading-relaxed mb-12">
-            I've edited thousands of minutes of content to understand exactly what the algorithm actually wants. No guesswork, just proven editing strategies that deliver real growth.
-          </p>
           
-          <div className="relative group aspect-video rounded-[3rem] overflow-hidden border border-themeCream/10 shadow-3xl glass bg-black">
+          <div className="relative group aspect-video rounded-[3rem] overflow-hidden border border-themeCream/10 shadow-3xl glass bg-black mt-12">
             <iframe
               src="https://player.cloudinary.com/embed/?cloud_name=djeosp9cf&public_id=Port-_xptldp&autoplay=true&muted=true"
               className="w-full h-full"
@@ -109,10 +113,10 @@ const App: React.FC = () => {
             ></iframe>
           </div>
 
-          <div className="mt-16">
+          <div className="mt-16 flex flex-wrap justify-center gap-6">
             <button 
-              onClick={scrollToContact}
-              className="px-10 py-5 bg-themeRust text-themeCream rounded-full font-black text-sm uppercase tracking-widest hover:bg-themeOrange transition-all flex items-center gap-4 mx-auto shadow-2xl group"
+              onClick={() => scrollToSection('contact')}
+              className="px-10 py-5 bg-themeRust text-themeCream rounded-full font-black text-sm uppercase tracking-widest hover:bg-themeOrange transition-all flex items-center gap-4 shadow-2xl group"
             >
               START YOUR PROJECT
               <div className="w-6 h-6 bg-themeCream text-themeRust rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -125,7 +129,6 @@ const App: React.FC = () => {
 
       {/* Viral Shorts Section */}
       <section className="py-32 px-6 relative overflow-hidden bg-black/10">
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-themeOrange/5 blur-[120px] rounded-full"></div>
         <div className="container mx-auto">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2 text-center lg:text-left">
@@ -140,108 +143,52 @@ const App: React.FC = () => {
               <p className="text-themeRose/50 text-xl font-medium max-w-lg mb-10">
                 In a scroll-fast world, you have 3 seconds to hook your audience. I specialize in split-second pacing and high-retention hooks that stop the scroll.
               </p>
-              <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+              <div className="flex flex-wrap justify-center lg:justify-start gap-12">
                 <div className="flex flex-col">
-                  <span className="text-4xl font-black">98%</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Avg. Completion</span>
+                  <span className="text-5xl font-black">{PORTFOLIO_DATA.stats.engagement}</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest opacity-40 mt-2">Avg. Growth</span>
                 </div>
-                <div className="w-px h-12 bg-themeCream/10"></div>
+                <div className="w-px h-16 bg-themeCream/10 hidden md:block"></div>
                 <div className="flex flex-col">
-                  <span className="text-4xl font-black">300%</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Engagement Boost</span>
+                  <span className="text-5xl font-black">98%</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest opacity-40 mt-2">Retention Score</span>
                 </div>
               </div>
             </div>
 
             <div className="lg:w-1/2 flex justify-center">
-              <div className="relative w-full max-w-[340px] aspect-[9/16] rounded-[3rem] overflow-hidden border-8 border-themeBg shadow-[0_40px_80px_rgba(0,0,0,0.6)] glass group bg-black">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="relative w-full max-w-[340px] aspect-[9/16] rounded-[3rem] overflow-hidden border-8 border-themeBg shadow-2xl glass bg-black">
                 <iframe
                   src="https://player.cloudinary.com/embed/?cloud_name=djeosp9cf&public_id=Main_ywomcb&autoplay=true&muted=true"
                   className="w-full h-full"
                   allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                   allowFullScreen
                 ></iframe>
-                <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-themeRust/30 rounded-full blur-[40px] pointer-events-none"></div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Educational Explainer Section */}
-      <section className="py-32 px-6 relative overflow-hidden bg-black/5">
-        <div className="absolute left-0 bottom-0 w-80 h-80 bg-themeRust/5 blur-[100px] rounded-full"></div>
-        <div className="container mx-auto">
-          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-32">
-            <div className="lg:w-1/2 flex justify-center lg:order-2">
-              <div className="relative w-full max-w-[340px] aspect-[9/16] rounded-[3rem] overflow-hidden border-8 border-themeBg shadow-[0_40px_80px_rgba(0,0,0,0.6)] glass group bg-black">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <iframe
-                  src="https://player.cloudinary.com/embed/?cloud_name=djeosp9cf&public_id=IF_YOU_STING_BY_A_BEE_rz0qxn&autoplay=true&muted=true"
-                  className="w-full h-full"
-                  allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-                <div className="absolute -top-4 -left-4 w-32 h-32 bg-themeOrange/20 rounded-full blur-[40px] pointer-events-none"></div>
-              </div>
-            </div>
-            
-            <div className="lg:w-1/2 text-center lg:text-left lg:order-1">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-themeOrange/20 rounded-full border border-themeOrange/30 text-themeOrange mb-8">
-                <BookOpen size={16} />
-                <span className="text-[10px] font-black uppercase tracking-widest">Informational Edits</span>
-              </div>
-              <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.85] mb-8">
-                EDUCATIONAL<br />
-                <span className="text-themeRust italic">EXPLAINERS</span>
-              </h2>
-              <p className="text-themeRose/50 text-xl font-medium mb-10 max-w-lg mx-auto lg:mx-0">
-                Turning complex information into digestible, engaging content. I use motion graphics and precise pacing to maintain authority while keeping the viewer hooked.
-              </p>
-              <div className="flex flex-col gap-6 items-center lg:items-start">
-                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-px bg-themeRust"></div>
-                    <span className="text-[10px] font-black uppercase tracking-widest opacity-60">100% Custom Motion Graphics</span>
-                 </div>
-                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-px bg-themeOrange"></div>
-                    <span className="text-[10px] font-black uppercase tracking-widest opacity-60">Optimized for Retention</span>
-                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Experience & Style Section */}
+      {/* Experience Section */}
       <section className="py-32 px-6 relative overflow-hidden bg-themeBg">
-        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-themeRust/5 blur-[120px] rounded-full pointer-events-none"></div>
         <div className="container mx-auto">
           <div className="glass rounded-[4rem] p-12 md:p-24 border-themeCream/5 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
-              <Sparkles size={200} className="text-themeOrange" />
-            </div>
-            
             <div className="flex flex-col lg:flex-row gap-16 items-start">
               <div className="lg:w-1/3">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-16 h-1 bg-themeRust"></div>
-                  <span className="text-xs font-black uppercase tracking-[0.4em] text-themeRust">THE ARTIST</span>
-                </div>
                 <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.85] mb-8">
-                  MY <br />
-                  <span className="text-themeOrange">JOURNEY</span>
+                  THE <br />
+                  <span className="text-themeOrange">ARTIST</span>
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-6 bg-black/40 rounded-3xl border border-themeCream/5">
-                    <div className="text-themeOrange mb-2"><Clock size={24} /></div>
-                    <p className="text-2xl font-black leading-none">2 YRS</p>
+                    <Clock className="text-themeOrange mb-4" />
+                    <p className="text-2xl font-black">{PORTFOLIO_DATA.stats.experience}</p>
                     <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 mt-1">Experience</p>
                   </div>
                   <div className="p-6 bg-black/40 rounded-3xl border border-themeCream/5">
-                    <div className="text-themeRust mb-2"><Globe size={24} /></div>
-                    <p className="text-2xl font-black leading-none">GLOBAL</p>
+                    <Globe className="text-themeRust mb-4" />
+                    <p className="text-2xl font-black">GLOBAL</p>
                     <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 mt-1">Clients</p>
                   </div>
                 </div>
@@ -249,15 +196,15 @@ const App: React.FC = () => {
               
               <div className="lg:w-2/3 space-y-8">
                 <p className="text-2xl md:text-4xl font-medium leading-relaxed text-themeCream/90">
-                  My name is <span className="text-themeOrange font-black">{portfolioData.name}</span> and I have 2 years of experience working with many <span className="text-themeRust italic">Indian and foreign clients</span> both.
+                  My name is <span className="text-themeOrange font-black">{PORTFOLIO_DATA.name}</span>. I've spent thousands of hours mastering the craft of visual storytelling.
                 </p>
                 <div className="h-px w-full bg-gradient-to-r from-themeRust/50 to-transparent"></div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-themeRose/60 leading-relaxed font-medium">
                   <p>
-                    I am using <span className="text-themeCream font-bold">Premiere Pro</span> for sound design and little motion graphics, and <span className="text-themeCream font-bold">After Effects</span> to create 3D animation and high-end VFX visuals.
+                    Expert in <span className="text-themeCream font-bold">Premiere Pro</span> for surgical sound design and <span className="text-themeCream font-bold">After Effects</span> for high-end motion graphics and 3D visuals.
                   </p>
                   <p>
-                    My hobbies include making things <span className="text-themeOrange font-bold">engaging</span> with my skills and crafting <span className="text-themeRust font-bold">cool titles</span> in Photoshop. I believe every frame should serve a purpose.
+                    I believe every frame must serve the audience's attention. My goal is simple: make your content <span className="text-themeOrange font-bold">impossible to ignore</span>.
                   </p>
                 </div>
               </div>
@@ -266,57 +213,28 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Skills Section */}
       <section className="py-32 px-6 bg-black/20">
         <div className="container mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
-              SKILLS I HAVE
+              TECH STACK
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { 
-                title: "PREMIERE PRO", 
-                desc: "Motion Graphics, Sound Design", 
-                icon: <img src={SKILLS[0].icon} className="w-10 h-10 object-contain" alt="Premiere Pro" />, 
-                color: "bg-themeOrange",
-                isLight: true
-              },
-              { 
-                title: "AFTER EFFECTS", 
-                desc: "Motion Graphics, 3D Animation, VFX", 
-                icon: <img src={SKILLS[1].icon} className="w-10 h-10 object-contain" alt="After Effects" />, 
-                color: "bg-themeRose",
-                isLight: true
-              },
-              { 
-                title: "FULL CONTENT CREATION", 
-                desc: "I am making content for my youtube channel", 
-                icon: <Film className="text-themeCream" />, 
-                color: "bg-themeBg border border-themeCream/20",
-                isLight: false
-              },
-              { 
-                title: "PHOTOSHOP", 
-                desc: "Graphics design and title making", 
-                icon: <img src={SKILLS[2].icon} className="w-10 h-10 object-contain" alt="Photoshop" />, 
-                color: "bg-themeRust",
-                isLight: false
-              },
-            ].map((service, idx) => (
-              <div key={idx} className={`p-10 rounded-[2.5rem] flex flex-col justify-between min-h-[320px] shadow-xl hover:-translate-y-2 transition-transform ${service.color}`}>
-                <div>
-                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-8">
-                    {service.icon}
-                  </div>
-                  <h3 className={`text-2xl font-black mb-4 leading-none ${service.isLight ? 'text-themeBg' : 'text-themeCream'}`}>
-                    {service.title}
-                  </h3>
-                </div>
-                <p className={`text-sm font-medium ${service.isLight ? 'text-themeBg/70' : 'text-themeRose/40'}`}>
-                  {service.desc}
+              { title: "PREMIERE PRO", desc: "Sound Design & Pacing", color: "bg-themeOrange", isLight: true },
+              { title: "AFTER EFFECTS", desc: "VFX & 3D Animation", color: "bg-themeRose", isLight: true },
+              { title: "PHOTOSHOP", desc: "High-CTR Thumbnails", color: "bg-themeRust", isLight: false },
+              { title: "AI WORKFLOW", desc: "Optimized Productivity", color: "bg-themeBg border border-themeCream/20", isLight: false },
+            ].map((skill, idx) => (
+              <div key={idx} className={`p-10 rounded-[2.5rem] flex flex-col justify-between min-h-[280px] shadow-xl hover:-translate-y-2 transition-transform ${skill.color}`}>
+                <h3 className={`text-2xl font-black uppercase leading-none ${skill.isLight ? 'text-themeBg' : 'text-themeCream'}`}>
+                  {skill.title}
+                </h3>
+                <p className={`text-sm font-medium ${skill.isLight ? 'text-themeBg/70' : 'text-themeRose/40'}`}>
+                  {skill.desc}
                 </p>
               </div>
             ))}
@@ -324,40 +242,26 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Redesigned Contact Section */}
+      {/* Contact Section */}
       <section id="contact" className="py-32 px-6 bg-themeBg relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-themeRust/5 blur-[120px] rounded-full pointer-events-none"></div>
-        <div className="container mx-auto max-6xl relative z-10">
+        <div className="container mx-auto max-w-6xl relative z-10">
           <div className="glass rounded-[4rem] p-12 md:p-20 border-themeCream/10 shadow-3xl">
             <div className="flex flex-col lg:flex-row gap-16 items-start">
               
               <div className="lg:w-1/2">
                 <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] mb-8">
-                  LET'S <br />
-                  <span className="text-themeRust italic">CONNECT</span>
+                  GET IN <br />
+                  <span className="text-themeRust italic">TOUCH</span>
                 </h2>
-                <p className="text-themeRose/40 text-lg font-medium max-w-md mb-12">
-                  Have a project in mind? Reach out and let's create something extraordinary together.
-                </p>
                 
-                <div className="space-y-6">
-                  <div className="flex items-center gap-6 group">
-                    <div className="w-12 h-12 bg-themeRust/20 rounded-2xl flex items-center justify-center text-themeRust group-hover:bg-themeRust group-hover:text-themeCream transition-all">
-                      <User size={24} />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">Full Name</span>
-                      <p className="text-xl font-bold">{portfolioData.name}</p>
-                    </div>
-                  </div>
-                  
-                  <a href="mailto:aakashguru849@gmail.com" className="flex items-center gap-6 group cursor-pointer">
-                    <div className="w-12 h-12 bg-themeOrange/20 rounded-2xl flex items-center justify-center text-themeOrange group-hover:bg-themeOrange group-hover:text-themeBg transition-all">
-                      <Mail size={24} />
+                <div className="space-y-8 mt-12">
+                  <a href={`mailto:${PORTFOLIO_DATA.contact.email}`} className="flex items-center gap-6 group cursor-pointer">
+                    <div className="w-14 h-14 bg-themeOrange/20 rounded-2xl flex items-center justify-center text-themeOrange group-hover:bg-themeOrange group-hover:text-themeBg transition-all">
+                      <Mail size={28} />
                     </div>
                     <div>
                       <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">Email Address</span>
-                      <p className="text-xl font-bold break-all group-hover:text-themeOrange transition-colors">aakashguru849@gmail.com</p>
+                      <p className="text-xl font-bold break-all group-hover:text-themeOrange transition-colors">{PORTFOLIO_DATA.contact.email}</p>
                     </div>
                   </a>
                 </div>
@@ -365,32 +269,28 @@ const App: React.FC = () => {
 
               <div className="lg:w-1/2 w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <a 
-                  href="https://www.youtube.com/@aakashbasant" 
+                  href={PORTFOLIO_DATA.contact.youtube}
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="bg-black/40 border border-themeCream/5 p-10 rounded-[3rem] hover:border-themeRust/50 transition-all group flex flex-col justify-between aspect-square sm:aspect-auto sm:h-[300px]"
+                  className="bg-black/40 border border-themeCream/5 p-10 rounded-[3rem] hover:border-themeRust/50 transition-all group flex flex-col justify-between h-[280px]"
                 >
-                  <div className="w-16 h-16 bg-red-600/10 rounded-3xl flex items-center justify-center text-red-600 group-hover:scale-110 transition-transform">
-                    <Youtube size={32} strokeWidth={2.5} />
-                  </div>
+                  <Youtube className="text-red-600 group-hover:scale-110 transition-transform" size={40} />
                   <div>
-                    <h3 className="text-2xl font-black mb-2 uppercase">YouTube</h3>
-                    <p className="text-xs text-themeRose/40 font-bold uppercase tracking-widest">@aakashbasant</p>
+                    <h3 className="text-2xl font-black uppercase">YouTube</h3>
+                    <p className="text-xs text-themeRose/40 font-bold uppercase tracking-widest mt-1">@aakashbasant</p>
                   </div>
                 </a>
 
                 <a 
-                  href="https://www.instagram.com/aakash_rajbhar_b/" 
+                  href={PORTFOLIO_DATA.contact.instagram}
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="bg-black/40 border border-themeCream/5 p-10 rounded-[3rem] hover:border-themeOrange/50 transition-all group flex flex-col justify-between aspect-square sm:aspect-auto sm:h-[300px]"
+                  className="bg-black/40 border border-themeCream/5 p-10 rounded-[3rem] hover:border-themeOrange/50 transition-all group flex flex-col justify-between h-[280px]"
                 >
-                  <div className="w-16 h-16 bg-pink-600/10 rounded-3xl flex items-center justify-center text-pink-600 group-hover:scale-110 transition-transform">
-                    <Instagram size={32} strokeWidth={2.5} />
-                  </div>
+                  <Instagram className="text-pink-600 group-hover:scale-110 transition-transform" size={40} />
                   <div>
-                    <h3 className="text-2xl font-black mb-2 uppercase">Instagram</h3>
-                    <p className="text-xs text-themeRose/40 font-bold uppercase tracking-widest">@aakash_rajbhar_b</p>
+                    <h3 className="text-2xl font-black uppercase">Instagram</h3>
+                    <p className="text-xs text-themeRose/40 font-bold uppercase tracking-widest mt-1">@aakash_rajbhar_b</p>
                   </div>
                 </a>
               </div>
@@ -401,20 +301,9 @@ const App: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-20 px-6 border-t border-themeCream/5">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-          <div className="flex items-center gap-4">
-             <div className="w-8 h-8 bg-themeRust/20 rounded-lg border border-themeRust/40"></div>
-             <span className="text-xl font-black tracking-tighter text-themeCream uppercase">
-                {firstName} <span className="text-themeRose/20">{lastName}</span>
-             </span>
-          </div>
-          <p className="text-themeRose/20 font-medium text-sm">© 2026 Crafted for Scale. High Retention Guaranteed.</p>
-          <div className="flex gap-10 font-black text-[10px] tracking-[0.3em] uppercase opacity-40 hover:opacity-100 transition-opacity">
-            <a href="#" className="hover:text-themeOrange">Privacy</a>
-            <a href="#" className="hover:text-themeOrange">Dribbble</a>
-            <a href="#" className="hover:text-themeOrange">Behance</a>
-          </div>
+      <footer className="py-20 px-6 border-t border-themeCream/5 text-center">
+        <div className="container mx-auto">
+          <p className="text-themeRose/20 font-medium text-sm">© 2026 {PORTFOLIO_DATA.name}. Built for high-retention impact.</p>
         </div>
       </footer>
     </div>
