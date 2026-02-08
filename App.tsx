@@ -1,9 +1,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { PROJECTS, SKILLS } from './constants';
+import { portfolioData } from './data';
 import BentoCard from './components/BentoCard';
 import FloatingElement from './components/FloatingElement';
-import { Play, Film, Send, Mail, MoveRight, Monitor, ArrowUpRight, TrendingUp, Users, Target, Zap, Smartphone, BookOpen, Youtube, Instagram, User, Globe, Clock, Sparkles } from 'lucide-react';
+import { Play, Film, Mail, Smartphone, BookOpen, Youtube, Instagram, User, Globe, Clock, Sparkles } from 'lucide-react';
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -30,6 +31,12 @@ const App: React.FC = () => {
     }
   };
 
+  // Dynamically split name from portfolioData
+  const nameParts = (portfolioData.name || 'Aakash Rajbhar').split(' ');
+  const firstName = nameParts[0] || 'AAKASH';
+  const lastName = nameParts.slice(1).join(' ') || 'RAJBHAR';
+  const initial = firstName.charAt(0);
+
   return (
     <div className="min-h-screen font-sans selection:bg-themeOrange selection:text-themeBg relative text-themeCream bg-themeBg">
       
@@ -38,7 +45,7 @@ const App: React.FC = () => {
         <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
           <div className="text-2xl font-black tracking-tighter group cursor-pointer flex items-center gap-2">
              <div className="w-6 h-6 bg-themeRust rounded-sm rotate-45 group-hover:rotate-90 transition-transform"></div>
-             <span>AAKASH</span>
+             <span className="uppercase">{firstName}</span>
           </div>
           <button 
             onClick={scrollToVideo}
@@ -55,21 +62,21 @@ const App: React.FC = () => {
       {/* Hero Section */}
       <section className="relative pt-40 pb-12 px-6 overflow-hidden flex flex-col justify-center">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 blur-[2px] pointer-events-none select-none">
-          <span className="font-chunky text-[40rem] leading-none text-themeRust select-none">A</span>
+          <span className="font-chunky text-[40rem] leading-none text-themeRust select-none">{initial}</span>
         </div>
         
         <div className="container mx-auto relative z-10">
           <div className="max-w-6xl">
             <h1 className="text-7xl md:text-[10rem] font-black tracking-tighter leading-[0.8] mb-4 uppercase">
-              AAKASH<br />
-              <span className="text-themeOrange">RAJBHAR</span>
+              {firstName}<br />
+              <span className="text-themeOrange">{lastName}</span>
             </h1>
             <p className="text-3xl md:text-6xl font-black text-themeRust uppercase tracking-[0.05em] mb-12 italic">
               Video Editor
             </p>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mt-16">
               <p className="text-themeRose/60 text-lg md:text-xl max-w-md font-medium leading-relaxed">
-                I've scaled channels to <span className="text-themeOrange font-bold">50M+ views</span>. High-retention storytelling for professionals ready to dominate their niche.
+                I've scaled channels to <span className="text-themeOrange font-bold">50M+ views</span>. {portfolioData.description}
               </p>
               <div className="flex gap-4">
                  <div className="w-12 h-1 bg-themeRust"></div>
@@ -242,7 +249,7 @@ const App: React.FC = () => {
               
               <div className="lg:w-2/3 space-y-8">
                 <p className="text-2xl md:text-4xl font-medium leading-relaxed text-themeCream/90">
-                  My name is <span className="text-themeOrange font-black">Aakash Rajbhar</span> and I have 2 years of experience working with many <span className="text-themeRust italic">Indian and foreign clients</span> both.
+                  My name is <span className="text-themeOrange font-black">{portfolioData.name}</span> and I have 2 years of experience working with many <span className="text-themeRust italic">Indian and foreign clients</span> both.
                 </p>
                 <div className="h-px w-full bg-gradient-to-r from-themeRust/50 to-transparent"></div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-themeRose/60 leading-relaxed font-medium">
@@ -259,7 +266,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Services Section - Updated SKILLS I HAVE */}
+      {/* Services Section */}
       <section className="py-32 px-6 bg-black/20">
         <div className="container mx-auto">
           <div className="text-center mb-20">
@@ -340,7 +347,7 @@ const App: React.FC = () => {
                     </div>
                     <div>
                       <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">Full Name</span>
-                      <p className="text-xl font-bold">Aakash Rajbhar</p>
+                      <p className="text-xl font-bold">{portfolioData.name}</p>
                     </div>
                   </div>
                   
@@ -398,7 +405,9 @@ const App: React.FC = () => {
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="flex items-center gap-4">
              <div className="w-8 h-8 bg-themeRust/20 rounded-lg border border-themeRust/40"></div>
-             <span className="text-xl font-black tracking-tighter text-themeCream">AAKASH <span className="text-themeRose/20">RAJBHAR</span></span>
+             <span className="text-xl font-black tracking-tighter text-themeCream uppercase">
+                {firstName} <span className="text-themeRose/20">{lastName}</span>
+             </span>
           </div>
           <p className="text-themeRose/20 font-medium text-sm">© 2026 Crafted for Scale. High Retention Guaranteed.</p>
           <div className="flex gap-10 font-black text-[10px] tracking-[0.3em] uppercase opacity-40 hover:opacity-100 transition-opacity">
