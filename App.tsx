@@ -2,12 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { PROJECTS, SKILLS } from './constants';
 import { portfolioData } from './data';
+import BentoCard from './components/BentoCard';
 import { Play, Film, Mail, Smartphone, BookOpen, Youtube, Instagram, User, Globe, Clock, Sparkles } from 'lucide-react';
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
 
-  // Strictly for UI behavior, no data fetching
+  // Strictly for UI behavior (sticky nav), NO data fetching or metadata useEffect
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -111,6 +112,17 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* Grid Projects Section */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-min">
+            {PROJECTS.map((project) => (
+              <BentoCard key={project.id} project={project} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Viral Shorts Section */}
       <section className="py-32 px-6 relative overflow-hidden bg-black/10">
         <div className="container mx-auto">
@@ -207,19 +219,14 @@ const App: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: "PREMIERE PRO", desc: "Sound Design & Pacing", color: "bg-themeOrange", isLight: true },
-              { title: "AFTER EFFECTS", desc: "VFX & 3D Animation", color: "bg-themeRose", isLight: true },
-              { title: "PHOTOSHOP", desc: "High-CTR Thumbnails", color: "bg-themeRust", isLight: false },
-              { title: "AI WORKFLOW", desc: "Optimized Productivity", color: "bg-themeBg border border-themeCream/20", isLight: false },
-            ].map((skill, idx) => (
-              <div key={idx} className={`p-10 rounded-[2.5rem] flex flex-col justify-between min-h-[280px] shadow-xl hover:-translate-y-2 transition-transform ${skill.color}`}>
-                <h3 className={`text-2xl font-black uppercase leading-none ${skill.isLight ? 'text-themeBg' : 'text-themeCream'}`}>
-                  {skill.title}
+            {SKILLS.map((skill, idx) => (
+              <div key={idx} className={`p-10 rounded-[2.5rem] flex flex-col justify-between min-h-[280px] shadow-xl hover:-translate-y-2 transition-transform bg-themeBg border border-themeCream/5 hover:border-themeRust/30`}>
+                <div className="w-12 h-12 mb-4">
+                  <img src={skill.icon} alt={skill.name} className="w-full h-full object-contain filter grayscale group-hover:grayscale-0" />
+                </div>
+                <h3 className="text-2xl font-black uppercase leading-none text-themeCream">
+                  {skill.name}
                 </h3>
-                <p className={`text-sm font-medium ${skill.isLight ? 'text-themeBg/70' : 'text-themeRose/40'}`}>
-                  {skill.desc}
-                </p>
               </div>
             ))}
           </div>
