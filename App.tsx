@@ -1,29 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { PROJECTS, SKILLS } from './constants';
+import { portfolioData } from './data';
 import { Play, Film, Mail, Smartphone, BookOpen, Youtube, Instagram, User, Globe, Clock, Sparkles } from 'lucide-react';
-
-// Hardcoded portfolio data to prevent any 404 or module resolution errors
-const PORTFOLIO_DATA = {
-  name: "Aakash Rajbhar",
-  role: "Video Editor",
-  description: "Professional editor specializing in high-retention storytelling, viral shorts, and cinematic showreels. I turn raw footage into high-performance digital assets.",
-  stats: {
-    views: "50M+",
-    experience: "2 YRS",
-    engagement: "300%"
-  },
-  contact: {
-    email: "aakashguru849@gmail.com",
-    youtube: "https://www.youtube.com/@aakashbasant",
-    instagram: "https://www.instagram.com/aakash_rajbhar_b/"
-  }
-};
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
 
-  // Only handle scroll logic, NO fetch or data loading
+  // Strictly for UI behavior, no data fetching
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -39,7 +23,7 @@ const App: React.FC = () => {
     }
   };
 
-  const nameParts = PORTFOLIO_DATA.name.split(' ');
+  const nameParts = portfolioData.name.split(' ');
   const firstName = nameParts[0];
   const lastName = nameParts[1];
   const initial = firstName.charAt(0);
@@ -79,11 +63,11 @@ const App: React.FC = () => {
               <span className="text-themeOrange">{lastName}</span>
             </h1>
             <p className="text-3xl md:text-6xl font-black text-themeRust uppercase tracking-[0.05em] mb-12 italic">
-              {PORTFOLIO_DATA.role}
+              {portfolioData.role}
             </p>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mt-16">
               <p className="text-themeRose/60 text-lg md:text-xl max-w-md font-medium leading-relaxed">
-                I've scaled channels to <span className="text-themeOrange font-bold">{PORTFOLIO_DATA.stats.views} views</span>. {PORTFOLIO_DATA.description}
+                I've scaled channels to <span className="text-themeOrange font-bold">{portfolioData.stats.views} views</span>. {portfolioData.description}
               </p>
               <div className="flex gap-4">
                  <div className="w-12 h-1 bg-themeRust"></div>
@@ -145,12 +129,12 @@ const App: React.FC = () => {
               </p>
               <div className="flex flex-wrap justify-center lg:justify-start gap-12">
                 <div className="flex flex-col">
-                  <span className="text-5xl font-black">{PORTFOLIO_DATA.stats.engagement}</span>
+                  <span className="text-5xl font-black">{portfolioData.stats.engagement}</span>
                   <span className="text-[10px] font-black uppercase tracking-widest opacity-40 mt-2">Avg. Growth</span>
                 </div>
                 <div className="w-px h-16 bg-themeCream/10 hidden md:block"></div>
                 <div className="flex flex-col">
-                  <span className="text-5xl font-black">98%</span>
+                  <span className="text-5xl font-black">{portfolioData.stats.retention}</span>
                   <span className="text-[10px] font-black uppercase tracking-widest opacity-40 mt-2">Retention Score</span>
                 </div>
               </div>
@@ -183,7 +167,7 @@ const App: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-6 bg-black/40 rounded-3xl border border-themeCream/5">
                     <Clock className="text-themeOrange mb-4" />
-                    <p className="text-2xl font-black">{PORTFOLIO_DATA.stats.experience}</p>
+                    <p className="text-2xl font-black">{portfolioData.stats.experience}</p>
                     <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 mt-1">Experience</p>
                   </div>
                   <div className="p-6 bg-black/40 rounded-3xl border border-themeCream/5">
@@ -196,7 +180,7 @@ const App: React.FC = () => {
               
               <div className="lg:w-2/3 space-y-8">
                 <p className="text-2xl md:text-4xl font-medium leading-relaxed text-themeCream/90">
-                  My name is <span className="text-themeOrange font-black">{PORTFOLIO_DATA.name}</span>. I've spent thousands of hours mastering the craft of visual storytelling.
+                  My name is <span className="text-themeOrange font-black">{portfolioData.name}</span>. I've spent thousands of hours mastering the craft of visual storytelling.
                 </p>
                 <div className="h-px w-full bg-gradient-to-r from-themeRust/50 to-transparent"></div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-themeRose/60 leading-relaxed font-medium">
@@ -255,13 +239,13 @@ const App: React.FC = () => {
                 </h2>
                 
                 <div className="space-y-8 mt-12">
-                  <a href={`mailto:${PORTFOLIO_DATA.contact.email}`} className="flex items-center gap-6 group cursor-pointer">
+                  <a href={`mailto:${portfolioData.contact.email}`} className="flex items-center gap-6 group cursor-pointer">
                     <div className="w-14 h-14 bg-themeOrange/20 rounded-2xl flex items-center justify-center text-themeOrange group-hover:bg-themeOrange group-hover:text-themeBg transition-all">
                       <Mail size={28} />
                     </div>
                     <div>
                       <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">Email Address</span>
-                      <p className="text-xl font-bold break-all group-hover:text-themeOrange transition-colors">{PORTFOLIO_DATA.contact.email}</p>
+                      <p className="text-xl font-bold break-all group-hover:text-themeOrange transition-colors">{portfolioData.contact.email}</p>
                     </div>
                   </a>
                 </div>
@@ -269,7 +253,7 @@ const App: React.FC = () => {
 
               <div className="lg:w-1/2 w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <a 
-                  href={PORTFOLIO_DATA.contact.youtube}
+                  href={portfolioData.contact.youtube}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-black/40 border border-themeCream/5 p-10 rounded-[3rem] hover:border-themeRust/50 transition-all group flex flex-col justify-between h-[280px]"
@@ -282,7 +266,7 @@ const App: React.FC = () => {
                 </a>
 
                 <a 
-                  href={PORTFOLIO_DATA.contact.instagram}
+                  href={portfolioData.contact.instagram}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-black/40 border border-themeCream/5 p-10 rounded-[3rem] hover:border-themeOrange/50 transition-all group flex flex-col justify-between h-[280px]"
@@ -303,7 +287,7 @@ const App: React.FC = () => {
       {/* Footer */}
       <footer className="py-20 px-6 border-t border-themeCream/5 text-center">
         <div className="container mx-auto">
-          <p className="text-themeRose/20 font-medium text-sm">© 2026 {PORTFOLIO_DATA.name}. Built for high-retention impact.</p>
+          <p className="text-themeRose/20 font-medium text-sm">© 2026 {portfolioData.name}. Built for high-retention impact.</p>
         </div>
       </footer>
     </div>

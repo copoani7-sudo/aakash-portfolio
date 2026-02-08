@@ -1,6 +1,21 @@
 
 export const portfolioData = {
-  "name": "Aakash Rajbhar Portfolio",
-  "description": "A high-energy, dark-themed bento-grid portfolio for a pro video editor featuring 3D elements and neon accents.",
-  "requestFramePermissions": []
+  name: "Aakash Rajbhar",
+  role: "Video Editor",
+  description: "Professional editor specializing in high-retention storytelling, viral shorts, and cinematic showreels. I turn raw footage into high-performance digital assets.",
+  stats: {
+    views: "50M+",
+    experience: "2 YRS",
+    engagement: "300%",
+    retention: "98%"
+  },
+  contact: {
+    email: "aakashguru849@gmail.com",
+    youtube: "https://www.youtube.com/@aakashbasant",
+    instagram: "https://www.instagram.com/aakash_rajbhar_b/"
+  },
+  meta: {
+    siteTitle: "Aakash Rajbhar | Video Editor Portfolio",
+    themeDescription: "A high-energy, dark-themed bento-grid portfolio featuring 3D elements and neon accents."
+  }
 };
