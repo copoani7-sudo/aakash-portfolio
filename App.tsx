@@ -8,7 +8,8 @@ import { Play, Film, Mail, Smartphone, BookOpen, Youtube, Instagram, User, Globe
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
 
-  // Strictly for UI behavior (sticky nav), NO data fetching or metadata useEffect
+  // Strictly for UI behavior (sticky nav). 
+  // No fetch logic, no meta.json dependencies.
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -26,7 +27,7 @@ const App: React.FC = () => {
 
   const nameParts = portfolioData.name.split(' ');
   const firstName = nameParts[0];
-  const lastName = nameParts[1];
+  const lastName = nameParts[1] || '';
   const initial = firstName.charAt(0);
 
   return (
@@ -39,15 +40,17 @@ const App: React.FC = () => {
              <div className="w-6 h-6 bg-themeRust rounded-sm rotate-45 group-hover:rotate-90 transition-transform"></div>
              <span className="uppercase">{firstName}</span>
           </div>
-          <button 
-            onClick={() => scrollToSection('showcase-video')}
-            className="px-6 py-2 bg-themeRust text-themeCream rounded-full font-black text-xs uppercase tracking-widest hover:bg-themeOrange transition-all flex items-center gap-2 group shadow-lg"
-          >
-            WATCH REEL
-            <div className="w-4 h-4 bg-themeCream text-themeRust rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Play size={8} fill="currentColor" />
-            </div>
-          </button>
+          <div className="flex items-center gap-6">
+            <button 
+              onClick={() => scrollToSection('showcase-video')}
+              className="px-6 py-2 bg-themeRust text-themeCream rounded-full font-black text-xs uppercase tracking-widest hover:bg-themeOrange transition-all flex items-center gap-2 group shadow-lg"
+            >
+              WATCH REEL
+              <div className="w-4 h-4 bg-themeCream text-themeRust rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Play size={8} fill="currentColor" />
+              </div>
+            </button>
+          </div>
         </div>
       </nav>
 
