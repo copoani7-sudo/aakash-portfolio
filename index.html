@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aakash Rajbhar | Video Editor Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&family=Bungee&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              themeBg: '#241705',
+              themeRust: '#BC430D',
+              themeOrange: '#F09410',
+              themeRose: '#F0D0C7',
+              themeCream: '#FEEAF0',
+            },
+            fontFamily: {
+              sans: ['Space Grotesk', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+              chunky: ['Bungee', 'cursive'],
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'glitch': 'glitch 1s linear infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'marquee': 'marquee 30s linear infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                '50%': { transform: 'translateY(-20px) rotate(5deg)' },
+              },
+              glitch: {
+                '0%': { transform: 'translate(0)' },
+                '20%': { transform: 'translate(-2px, 2px)' },
+                '40%': { transform: 'translate(-2px, -2px)' },
+                '60%': { transform: 'translate(2px, 2px)' },
+                '80%': { transform: 'translate(2px, -2px)' },
+                '100%': { transform: 'translate(0)' },
+              },
+              marquee: {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-50%)' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #241705;
+        color: #FEEAF0;
+        overflow-x: hidden;
+      }
+      .glass {
+        background: rgba(254, 234, 240, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(254, 234, 240, 0.1);
+      }
+      .neon-shadow-rust {
+        box-shadow: 0 0 25px rgba(188, 67, 13, 0.4);
+      }
+      .neon-shadow-orange {
+        box-shadow: 0 0 25px rgba(240, 148, 16, 0.4);
+      }
+      
+      /* 3D Cookie Text Effects - Updated for Warm Palette */
+      .cookie-text-yellow {
+        color: #F09410;
+        text-shadow: 
+          0 1px 0 #241705,
+          0 2px 0 #241705,
+          0 3px 0 #241705,
+          0 4px 0 #241705,
+          0 5px 0 #241705,
+          0 6px 1px rgba(0,0,0,.3),
+          0 1px 3px rgba(0,0,0,.5),
+          0 5px 10px rgba(0,0,0,.4);
+        -webkit-text-stroke: 2px #241705;
+      }
+      
+      .cookie-text-cream {
+        color: #FEEAF0;
+        text-shadow: 
+          0 1px 0 #BC430D,
+          0 2px 0 #BC430D,
+          0 3px 0 #BC430D,
+          0 4px 0 #BC430D,
+          0 5px 0 #BC430D,
+          0 6px 1px rgba(0,0,0,.3),
+          0 1px 3px rgba(0,0,0,.5),
+          0 5px 10px rgba(0,0,0,.4);
+        -webkit-text-stroke: 2px #BC430D;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #241705;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #BC430D;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #F09410;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
