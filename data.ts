@@ -13,9 +13,5 @@ export const portfolioData = {
     email: "aakashguru849@gmail.com",
     youtube: "https://www.youtube.com/@aakashbasant",
     instagram: "https://www.instagram.com/aakash_rajbhar_b/"
-  },
-  meta: {
-    siteTitle: "Aakash Rajbhar | Video Editor Portfolio",
-    themeDescription: "A high-energy, dark-themed bento-grid portfolio featuring 3D elements and neon accents."
   }
 };

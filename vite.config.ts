@@ -1,8 +1,9 @@
+
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // The 'base' property has been removed to support root-level deployment on platforms like Vercel.
+  base: '/aakash-portfolio/',
 });
